@@ -9,6 +9,9 @@ class Board
 	static constexpr Color bodyColor = Colors::Gray;
 	static constexpr Color emptyColor = Colors::Black;
 	static constexpr Color GoalColor = Colors::Green;
+	static constexpr Color PoisonColor = Colors::Magenta;
+	static constexpr Color ObstacleColor = Colors::LightGray;
+	
 	static constexpr int cellNumX = (Graphics::ScreenWidth) / 10;
 	static constexpr int cellNumY = (Graphics::ScreenHeight) / 10;
 	Color cell[cellNumX][cellNumY];//создает €чейки пол€
@@ -18,7 +21,8 @@ public:
 	void WCell(Location in_loc, Color c);
 	void Draw(Graphics& gfx);//выводит доску на экран
 	void CheckVln();
-
+	void CreateObstacle(int i, int j);
+	void SetPoison(int i, int j);
 
 
 	 //!!!!=======================
