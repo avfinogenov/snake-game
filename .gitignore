@@ -32,3 +32,8 @@
 *.app
 /.vs/snektmp2/v16/Browse.VC.opendb
 /.vs/snektmp2/v16/Browse.VC.db
+/.vs/snektmp2/v16/ipch/AutoPCH/1f67ba9070f9fa7f
+/.vs/snektmp2/v16
+/Engine/x64/Debug/Engine.tlog
+/Engine/x64/Debug
+/x64/Debug
