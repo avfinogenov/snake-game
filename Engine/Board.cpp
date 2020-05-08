@@ -31,7 +31,7 @@ Board::Board(Graphics& gfx)
 		x = cellNumX - 1;
 		guest[x][y] = true;
 	}
-	int count = 50;
+	int count = 150;
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> sDist(0, cellNumX * cellNumY);
@@ -127,6 +127,10 @@ void Board::CheckVln()
 		in_loc.y = l1.y + l2.y;
 
 
+		if (in_loc.x < 0 || in_loc.x>cellNumX || in_loc.y<0 || in_loc.y>cellNumY)
+		{
+			vln = true;
+		}
 
 		if (cell[in_loc.x][in_loc.y] == Colors::Green)
 		{
