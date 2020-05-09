@@ -12,25 +12,26 @@ Board::Board(Graphics& gfx)
 	{
 		for (int y = 0; y < cellNumY; y++)
 		{
+			content[y * cellNumY + x] = CellContents::Empty;
 			cell[x][y] = Colors::Black;
-			guest[x][y] = false;
+			//guest[x][y] = false;
 		}
 	}
 	SetSnek();
-	for (int x = 0; x < cellNumX; x++)
-	{
-		int y = 0;
-		guest[x][y] = true;
-		y = cellNumY - 1;
-		guest[x][y] = true;
-	}
-	for (int y = 0; y < cellNumY; y++)
-	{
-		int x = 0;
-		guest[x][y] = true;
-		x = cellNumX - 1;
-		guest[x][y] = true;
-	}
+	//or (int x = 0; x < cellNumX; x++)
+	//
+	//	int y = 0;
+	//	guest[x][y] = true;
+	//	y = cellNumY - 1;
+	//	guest[x][y] = true;
+	//
+	//or (int y = 0; y < cellNumY; y++)
+	//
+	//	int x = 0;
+	//	guest[x][y] = true;
+	//	x = cellNumX - 1;
+	//	guest[x][y] = true;
+	//
 	int count = 150;
 	std::random_device rd;
 	std::mt19937 rng(rd());
@@ -44,6 +45,7 @@ Board::Board(Graphics& gfx)
 		Xrand = randomnumber - Yrand * cellNumX;
 		if (cell[Xrand][Yrand] == Colors::Black)
 		{
+			content[Yrand * cellNumX + Xrand] = CellContents::Poison;
 			SetPoison(Xrand, Yrand);
 			count--;
 		}
@@ -105,12 +107,13 @@ void Board::MakeStep(float dt)
 			Location head = snek.GetSeg(0);
 			WCell(head, headColor);//записать нарисовать голову
 
-			guest[(int)head.x][(int)head.y] = true;
+			//guest[(int)head.x][(int)head.y] = true;
 		}
 		if (isEaten)				//если голодная
 		{
 			snek.tail++;//удлиняем хвост
 			isEaten = false;//перевариваем фрукт
+			content[snek.GetSeg(0).y * cellNumX + snek.GetSeg(0).x] = CellContents::Empty;
 		}
 		snek.stepIsDone = false;
 	}
@@ -143,6 +146,7 @@ void Board::CheckVln()
 		if (cell[in_loc.x][in_loc.y] == Colors::Magenta)
 		{
 			snek.vs++;
+			content[in_loc.y * cellNumX + in_loc.x] = CellContents::Empty;
 		}
 		if (cell[in_loc.x][in_loc.y] == Colors::LightGray)
 		{
@@ -162,6 +166,7 @@ void Board::CreateObstacle(int i, int j)
 	// в свободную клетку засунуть преграду
 	if (cell[i][j] == Color(Colors::Black))
 	{
+		content[j * cellNumX + i] = CellContents::Obstacle;
 		cell[i][j] = ObstacleColor;
 	}
 }
@@ -176,6 +181,7 @@ void Board::SetPoison(int i, int j)
 
 void Board::PaintGoal(Goal& g)
 {
+	content[g.loc.y * cellNumX + g.loc.x] = CellContents::Goal;
 	cell[(int)g.loc.x][(int)g.loc.y] = GoalColor;
 }
 

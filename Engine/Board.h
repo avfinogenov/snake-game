@@ -5,6 +5,13 @@
 #include "Goal.h"
 class Board
 {
+	enum class CellContents 
+	{
+		Empty,
+		Goal,
+		Obstacle,
+		Poison
+	};
 	static constexpr Color headColor = Colors::Red;
 	static constexpr Color bodyColor = Colors::Gray;
 	static constexpr Color emptyColor = Colors::Black;
@@ -16,6 +23,7 @@ class Board
 	static constexpr int cellNumX = (Graphics::ScreenWidth) / 10;
 	static constexpr int cellNumY = (Graphics::ScreenHeight) / 10;
 	Color cell[cellNumX][cellNumY];//создает €чейки пол€
+	CellContents content[cellNumX * cellNumY] = { CellContents::Empty };
 	int freeCell;
 public:
 	Board(Graphics& gfx);
