@@ -2,8 +2,11 @@
 
 
 
-Snek::Snek()
+Snek::Snek(int sr, int i, int j):
+	speduprate(sr)
 {
+	defX = i / 2;
+	defY = j / 2;
 	for (int n = 0; n < tail; n++)
 	{
 		loc[n].x = defX + n;
@@ -80,12 +83,12 @@ void Snek::Update(MainWindow& wnd)
 		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
 		{
 			update = true;
-			vs++;
+			vs+=speduprate;
 		}
 		if (wnd.kbd.KeyIsPressed(VK_CONTROL))
 		{
 			update = true;
-			vs--;
+			vs-=speduprate;
 		}
 	}
 	else {

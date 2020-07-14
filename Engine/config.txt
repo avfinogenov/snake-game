@@ -1,0 +1,10 @@
+[tile size]
+15
+[board size]
+26 20
+[speedup rate]
+2
+[poison amount]
+100
+[goal amount]
+2

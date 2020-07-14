@@ -25,18 +25,49 @@
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd),
-	brd(gfx)
+	gfx(wnd)
 	
-{	
-	
+{
+	int size;
+	int x, y, srate, pamount, gamount;
+
+	string s;
+	ifstream InFile;
+	InFile.open("config.txt", ios::in);
+	while (!InFile.eof())
+	{
+		
+		getline(InFile, s);
+		if (s == "[tile size]")
+		{
+			InFile >> size;
+		}
+		if (s == "[board size]")
+		{
+			InFile >> x >> y;
+		}
+		if (s == "[speedup rate]")
+		{
+			InFile >> srate;
+
+		}
+		if (s == "[poison amount]")
+		{
+			InFile >> pamount;
+		}
+		if (s == "[goal amount]")
+		{
+			InFile >> gamount;
+		}
+	}
+	brd = new Board(gfx, size, x, y, srate, pamount, gamount);
 }
 
 void Game::Go()
 {
 	gfx.BeginFrame();	
 	ComposeFrame();
-	if (!brd.vln)
+	if (!brd->vln)
 	{
 		UpdateModel();
 	}
@@ -48,9 +79,9 @@ void Game::UpdateModel()
 	
 	const float dt = ft.Mark();
 	
-	brd.Update(wnd);
-	brd.MakeStep(dt);
-	brd.ConsumeCheck();
+	brd->Update(wnd);
+	brd->MakeStep(dt);
+	brd->ConsumeCheck();
 		
 }
 
@@ -58,9 +89,9 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 
-	if (!brd.vln)//если все в поряде то вывести доску
+	if (!brd->vln)//если все в поряде то вывести доску
 	{
-		brd.Draw(gfx);
+		brd->Draw(gfx);
 		
 	}
 	else//если змея превышает то конец

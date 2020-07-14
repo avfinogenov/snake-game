@@ -26,6 +26,10 @@
 #include "Board.h"
 #include"Snek.h"
 #include"FrameTimer.h"
+#include <fstream>
+#include <string>
+
+using namespace std;
 class Game
 {
 public:
@@ -50,6 +54,6 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	Board brd;//доска
+	Board* brd;//доска
 	/********************************/
 };

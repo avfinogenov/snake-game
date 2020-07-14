@@ -8,7 +8,7 @@ class Snek
 public:
 	static constexpr int nSegmentsMax = 100;
 	float stepsize = 1.0f;
-	Snek();		
+	Snek(int sr, int i, int j);		
 
 	void SetDef(Location loc);		//??????????
 
@@ -34,7 +34,7 @@ public:
 	void MakeStep(float dt);//11!!!!!!
 	void ApplyStep();
 	
-	int tail = 16;
+	int tail = 3;
 	bool update = false;
 	void CV();
 	float vs=5;//количество пикселей в секунду
@@ -51,11 +51,11 @@ public:
 	bool HeadToBodyDown;				 //new
 	bool HeadToBodyLeft;				 //new
 	bool HeadToBodyRight;				 //new
-
+	int speduprate;
 	~Snek();
 private:		
-		int defX = 40;			
-		int defY = 30;			
+		int defX;			
+		int defY;			
 		bool isEaten = false;			
 		Location loc[nSegmentsMax];		
 		float hStepX;

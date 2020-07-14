@@ -20,13 +20,15 @@ class Board
 	static constexpr Color PoisonColor = Colors::Magenta;
 	//static constexpr Color GoalColor = Colors::Green;
 
-	static constexpr int cellNumX = (Graphics::ScreenWidth) / 10;
-	static constexpr int cellNumY = (Graphics::ScreenHeight) / 10;
-	Color cell[cellNumX][cellNumY];//создает €чейки пол€
-	CellContents content[cellNumX * cellNumY] = { CellContents::Empty };
+	int cellNumX;
+	int cellNumY;
+	//Color* cell;//создает €чейки пол€
+	//CellContents* content[cellNumX * cellNumY] = { CellContents::Empty };
+	Color* cell;
+	CellContents* content;
 	int freeCell;
 public:
-	Board(Graphics& gfx);
+	Board(Graphics& gfx, int cellsize, int x,int  y,int  srate,int  pamount,int  gamount);
 	void WCell(Location in_loc, Color c);
 	void Draw(Graphics& gfx);//выводит доску на экран
 	void CheckVln();
@@ -40,20 +42,22 @@ public:
 
 	void PaintGoal(Goal& g);
 	void Update(MainWindow& wnd);
-	void SetGoal();
+	void SetGoal(int num);
 	void ConsumeCheck();
 	bool vln = false;
 	bool isEaten = false;
 	void SetSnek();
-	bool guest[cellNumX][cellNumY];
+	bool* guest;
 	~Board();
 private:
 	Graphics& gfx;
-	static constexpr int width=10;//размеры €чеек
-	static constexpr int height=10;
-	Snek snek;
-	Goal g;
-	
+	int size;//размеры €чеек
+	//static constexpr int height=10;
+	Snek* snek;
+	Goal* g;
+	int srate;
+	int  pamount;
+	int  gamount;
 	
 	
 
